@@ -1,81 +1,45 @@
-import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome, faTv, faTools, faFutbol, faMoneyBill, faQuestionCircle, faBan, faTaxi } from '@fortawesome/free-solid-svg-icons'
+import { faTiktok } from '@fortawesome/free-brands-svg-icons'
 
-export default function Sidebar({ open, toggle }) {
+export default function Sidebar({ isOpen, toggle }) {
+  const links = [
+    { icon: faHome, label: "Home", href: "/" },
+    { icon: faTv, label: "မြန်မာစာတန်းထိုး", href: "https://thuwanawadi.vercel.app/movie/index.html" },
+    { icon: faTv, label: "မြန်မာတီဗွီ", href: "/mmtv" },
+    { icon: faTools, label: "အေအိုင်(Tools)", href: "https://thuwanawadi.vercel.app/freeAi.html" },
+    { icon: faTools, label: "အေအိုင်(Prompt)", href: "https://thuwanawadi.vercel.app/aipromp.html" },
+    { icon: faFutbol, label: "ဘောလုံးပွဲ(main)", href: "https://thuwanawadi.vercel.app/live/index.html" },
+    { icon: faFutbol, label: "ဘောလုံးပွဲ(rbtv)", href: "https://www.rbtvplus.com/football.html" },
+    { icon: faFutbol, label: "ဘောလုံးပွဲ(mm)", href: "https://app.mmfot.com/" },
+    { icon: faFutbol, label: "ဂိုးစကိုး(Livescore)", href: "https://www.fotmob.com/my" },
+    { icon: faMoneyBill, label: "အွန်လိုငွေရှာနည်း", href: "https://subuu-gq2t.vercel.app/" },
+    { icon: faQuestionCircle, label: "Appအကြောင်း", href: "https://thuwanawadi.vercel.app/about.html" },
+    { icon: faBan, label: "Adult (🔐)", href: "https://thuwanawadi.vercel.app/Adult/index.html" },
+  ]
+
   return (
-    <>
-      {/* Mobile Overlay */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
-          onClick={toggle}
-        ></div>
-      )}
-
-      {/* Sidebar */}
-      <div
-        className={`fixed top-0 left-0 h-full w-48 bg-gray-800 z-30 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
-          open ? 'translate-x-0' : '-translate-x-full'
-        } lg:block`}
-      >
-        <div className="p-4 flex items-center">
-          <i className="fas fa-taxi text-yellow-400 text-2xl mr-2"></i>
-          <h1 className="text-lg font-bold text-yellow-400">Thuwanawaddy</h1>
-        </div>
-        <nav className="flex flex-col">
-          {[
-            { to: "/", icon: "fa-home", label: "Home" },
-            { to: "/movie/index.html", icon: "fa-tv", label: "မြန်မာစာတန်းထိုး", external: "https://thuwanawadi.vercel.app/movie/index.html" },
-            { to: "/mmtv/index.html", icon: "fa-tv", label: "မြန်မာတီဗွီ" },
-            { to: "/freeAi.html", icon: "fa-tools", label: "အေအိုင်(Tools)" },
-            { to: "/aipromp.html", icon: "fa-tools", label: "အေအိုင်(Prompt)" },
-            { to: "/live/index.html", icon: "fa-futbol", label: "ဘောလုံးပွဲ(main)" },
-            { to: "https://www.rbtvplus.com/football.html", icon: "fa-futbol", label: "ဘောလုံးပွဲ(rbtv)", external: true },
-            { to: "https://app.mmfot.com/", icon: "fa-futbol", label: "ဘောလုံးပွဲ(mm)", external: true },
-            { to: "https://www.fotmob.com/my", icon: "fa-futbol", label: "ဂိုးစကိုး(Livescore)", external: true },
-            { to: "https://subuu-gq2t.vercel.app/", icon: "fa-money-bill", label: "အွန်လိုငွေရှာနည်း", external: true },
-            { to: "/about.html", icon: "fa-question-circle", label: "Appအကြောင်း" },
-            { to: "https://thuwanawadi.vercel.app/Adult/index.html", icon: "fa-ban", label: "Adult (🔐)", external: true }
-          ].map((item, i) =>
-            item.external ? (
-              <a
-                key={i}
-                href={item.external || item.to}
-                target="_blank"
-                rel="noreferrer"
-                className="py-3 px-4 flex items-center text-gray-300 hover:bg-yellow-400 hover:text-black"
-              >
-                <i className={`fas ${item.icon} mr-3`}></i>
-                <span>{item.label}</span>
-              </a>
-            ) : (
-              <Link
-                key={i}
-                to={item.to}
-                className="py-3 px-4 flex items-center text-gray-300 hover:bg-yellow-400 hover:text-black"
-              >
-                <i className={`fas ${item.icon} mr-3`}></i>
-                <span>{item.label}</span>
-              </Link>
-            )
-          )}
-        </nav>
+    <div
+      className={`sidebar bg-gray-800 w-48 fixed top-0 left-0 z-30 ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
+    >
+      <div className="p-4 flex items-center">
+        <FontAwesomeIcon icon={faTaxi} className="text-yellow-400 text-2xl mr-2" />
+        <h1 className="text-lg font-bold text-yellow-400">Thuwanawaddy</h1>
       </div>
-
-      {/* Mobile Header */}
-      <header className="lg:hidden flex items-center justify-between bg-black p-4 fixed top-0 left-0 right-0 z-50">
-        <h1 className="text-white font-bold text-lg flex items-center">
-          <i className="fab fa-tiktok mr-2 text-pink-500"></i>
-          <i className="fas fa-shop mr-1 text-yellow-400"></i>
-          TIKTOK SHOP 🇲🇲
-        </h1>
-        <button
-          onClick={toggle}
-          className="text-white text-2xl"
-          aria-label="Open menu"
-        >
-          <i className="fas fa-bars"></i>
-        </button>
-      </header>
-    </>
+      <div className="flex flex-col">
+        {links.map((link, i) => (
+          <a
+            key={i}
+            href={link.href}
+            target={link.href.startsWith("http") ? "_blank" : "_self"}
+            rel="noopener noreferrer"
+            className="py-3 px-4 flex items-center text-gray-300 hover:bg-yellow-400 hover:text-black"
+          >
+            <FontAwesomeIcon icon={link.icon} className="mr-3" />
+            <span>{link.label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
   )
-}
+      }
